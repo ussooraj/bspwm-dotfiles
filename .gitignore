@@ -1,0 +1,19 @@
+test/
+add_pkgs*
+
+# VSCode
+.vscode/
+.history/
+
+*.bak
+*.old
+*.backup
+
+*.log
+
+*.zip
+*.tar.gz
+*.rar
+
+build/
+dist/
