@@ -8,7 +8,7 @@
 #
 #     Z0mbi3 BSPWM Theme Installer
 #     Repository: https://github.com/ussooraj/bspwm-dotfiles
-#     Based on: gh0stzk/dotfiles
+#     Based on: https://github.com/gh0stzk/dotfiles
 
 # Colors
 CRE=$(tput setaf 1)
@@ -107,40 +107,49 @@ install_core_dependencies() {
     printf "%b\n" "${BLD}${CYE}Updating package database...${CNC}"
     sudo pacman -Syy
 
+    printf "\n%b\n\n" "${BLD}${CYE}Installing core packages (this may take a while)...${CNC}"
+    
     # Core packages needed for z0mbi3 theme
     core_deps="bspwm sxhkd picom dunst rofi xorg-server xorg-xsetroot xorg-xrandr xorg-xprop xorg-xkill xorg-xdpyinfo xorg-xwininfo xorg-xrdb xdo xdotool xdg-user-dirs lxsession xsettingsd base-devel git alacritty kitty feh maim xclip xcolor jq brightnessctl redshift bat eza fzf clipcat thunar tumbler gvfs-mtp yazi mpd mpc ncmpcpp playerctl pamixer pacman-contrib imagemagick libwebp webp-pixbuf-loader neovim geany npm rustup python-gobject firefox blueman network-manager-applet ttf-jetbrains-mono ttf-jetbrains-mono-nerd ttf-inconsolata ttf-terminus-nerd ttf-ubuntu-mono-nerd zsh zsh-autosuggestions zsh-history-substring-search zsh-syntax-highlighting"
 
     failed_deps=""
-    retry_failed=""
 
-    printf "\n%b\n" "${BLD}${CYE}Installing packages (this may take a while)...${CNC}"
-    for pkg in $core_deps; do
-        sleep 0.50
-        if ! sudo pacman -S --noconfirm --needed "$pkg" >/dev/null 2>&1; then
-            failed_deps="$failed_deps $pkg"
-        fi
-    done
-
-    if [ -n "$failed_deps" ]; then
-        printf "\n%b\n" "${BLD}${CRE}These packages failed:${CYE}${failed_deps}${CNC}"
-        printf "%b\n\n" "${BLD}${CYE}Retrying...${CNC}"
-
-        for pkg in $failed_deps; do
-            sleep 0.50
-            if ! sudo pacman -S --noconfirm --needed "$pkg" >/dev/null 2>&1; then
-                retry_failed="$retry_failed $pkg"
+    # Install all packages at once with visible output
+    printf "%b\n" "${BLD}${CBL}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${CNC}"
+    if ! sudo pacman -S --noconfirm --needed $core_deps; then
+        printf "\n%b\n" "${BLD}${CRE}Some packages failed during installation.${CNC}"
+        printf "%b\n" "${BLD}${CYE}Checking which packages failed...${CNC}\n"
+        
+        # Check each package individually to find failures
+        for pkg in $core_deps; do
+            if ! pacman -Q "$pkg" >/dev/null 2>&1; then
+                failed_deps="$failed_deps $pkg"
             fi
         done
+        
+        if [ -n "$failed_deps" ]; then
+            printf "%b\n" "${BLD}${CRE}Failed packages:${CYE}${failed_deps}${CNC}"
+            printf "%b\n" "${BLD}${CYE}Retrying failed packages individually...${CNC}\n"
+            
+            retry_failed=""
+            for pkg in $failed_deps; do
+                printf "%b\n" "${BLD}${CBL}→ Retrying: ${CNC}$pkg"
+                if ! sudo pacman -S --noconfirm --needed "$pkg"; then
+                    retry_failed="$retry_failed $pkg"
+                fi
+            done
+            
+            if [ -n "$retry_failed" ]; then
+                printf "\n%b\n" "${BLD}${CRE}Could not install:${CYE}${retry_failed}${CNC}"
+                printf "%b\n" "${BLD}${CBL}missing_apps.txt ${CYE}created in HOME${CNC}"
+                printf "# Failed packages from pacman\nInstall these manually with: sudo pacman -S <package>\n\n%s\n" "$retry_failed" > "$HOME/missing_apps.txt"
+            fi
+        fi
     fi
-
-    if [ -n "$retry_failed" ]; then
-        printf "\n%b\n" "${BLD}${CRE}Could not install:${CYE}${retry_failed}${CNC}"
-        printf "%b\n\n" "${BLD}${CBL}missing_apps.txt ${CYE}created in HOME${CNC}"
-        printf "# Failed packages from pacman\nInstall these manually with: sudo pacman -S <package>\n\n%s\n" "$retry_failed" > "$HOME/missing_apps.txt"
-    else
-        printf "\n%b\n" "${BLD}${CGR}All core dependencies installed successfully!${CNC}"
-    fi
-    sleep 3
+    
+    printf "%b\n" "${BLD}${CBL}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${CNC}"
+    printf "\n%b\n" "${BLD}${CGR}Core dependencies installation completed!${CNC}"
+    sleep 2
 }
 
 install_aur_dependencies() {
@@ -150,14 +159,16 @@ install_aur_dependencies() {
 
     # Install paru if not present
     if ! command -v paru >/dev/null 2>&1; then
-        printf "%b\n" "${BLD}${CYE}Installing PARU AUR helper...${CNC}"
+        printf "%b\n\n" "${BLD}${CYE}Installing PARU AUR helper...${CNC}"
+        printf "%b\n" "${BLD}${CBL}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${CNC}"
         cd "$HOME" || exit
         git clone https://aur.archlinux.org/paru-bin.git
         cd paru-bin || exit
         makepkg -si --noconfirm
         cd "$HOME" || exit
         rm -rf paru-bin
-        printf "%b\n" "${BLD}${CGR}✓ Paru installed${CNC}"
+        printf "%b\n" "${BLD}${CBL}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${CNC}"
+        printf "\n%b\n" "${BLD}${CGR}✓ Paru installed successfully${CNC}"
     else
         printf "%b\n" "${BLD}${CGR}✓ Paru already installed${CNC}"
     fi
@@ -165,44 +176,36 @@ install_aur_dependencies() {
     # EWW is CRITICAL for z0mbi3 theme + other AUR packages
     aur_deps="eww-git xwinwrap-0.9-bin i3lock-color simple-mtpfs fzf-tab-git"
 
+    printf "\n%b\n" "${BLD}${CYE}Installing AUR packages...${CNC}"
+    printf "%b\n\n" "${BLD}${CRE}⚠ This will take some time as packages are built from source!${CNC}"
+    
     failed_deps=""
-    retry_failed=""
-
-    printf "\n%b\n" "${BLD}${CYE}Installing AUR packages (this takes time)...${CNC}"
+    
     for pkg in $aur_deps; do
-        printf "%b" "${BLD}${CBL}  → ${CNC}$pkg... "
-        sleep 0.50
-        if paru -S --skipreview --noconfirm "$pkg" >/dev/null 2>&1; then
-            printf "%b\n" "${BLD}${CGR}✓${CNC}"
-        else
-            printf "%b\n" "${BLD}${CRE}✗${CNC}"
+        printf "%b\n" "${BLD}${CBL}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${CNC}"
+        printf "%b\n" "${BLD}${CYE}Installing: ${CBL}$pkg${CNC}"
+        printf "%b\n" "${BLD}${CBL}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${CNC}"
+        
+        if ! paru -S --skipreview --noconfirm "$pkg"; then
+            printf "\n%b\n" "${BLD}${CRE}✗ Failed to install $pkg${CNC}"
             failed_deps="$failed_deps $pkg"
+        else
+            printf "\n%b\n" "${BLD}${CGR}✓ Successfully installed $pkg${CNC}"
         fi
+        printf "\n"
     done
 
     if [ -n "$failed_deps" ]; then
-        printf "\n%b\n" "${BLD}${CRE}These AUR packages failed:${CYE}${failed_deps}${CNC}"
-        printf "%b\n\n" "${BLD}${CYE}Retrying...${CNC}"
-
-        for pkg in $failed_deps; do
-            sleep 0.50
-            if ! paru -S --skipreview --noconfirm "$pkg" >/dev/null 2>&1; then
-                retry_failed="$retry_failed $pkg"
-            fi
-        done
-    fi
-
-    if [ -n "$retry_failed" ]; then
-        printf "\n%b\n" "${BLD}${CRE}Could not install:${CYE}${retry_failed}${CNC}"
-        if echo "$retry_failed" | grep -q "eww-git"; then
+        printf "%b\n" "${BLD}${CRE}Could not install:${CYE}${failed_deps}${CNC}"
+        if echo "$failed_deps" | grep -q "eww-git"; then
             printf "\n%b\n" "${BLD}${CRE}⚠ WARNING: EWW is REQUIRED for z0mbi3 theme!${CNC}"
             printf "%b\n" "${BLD}${CYE}Install manually with: paru -S eww-git${CNC}"
         fi
-        printf "\n# Failed AUR packages\nInstall these manually with: paru -S <package>\n\n%s\n" "$retry_failed" >> "$HOME/missing_apps.txt"
+        printf "\n# Failed AUR packages\nInstall these manually with: paru -S <package>\n\n%s\n" "$failed_deps" >> "$HOME/missing_apps.txt"
     else
-        printf "\n%b\n" "${BLD}${CGR}All AUR packages installed successfully!${CNC}"
+        printf "%b\n" "${BLD}${CGR}All AUR packages installed successfully!${CNC}"
     fi
-    sleep 3
+    sleep 2
 }
 
 install_assets() {
@@ -217,7 +220,7 @@ install_assets() {
     printf "%b\n" "${BLD}${CGR}✓ Ubuntu Mono Nerd Font${CNC}"
     
     printf "\n%b\n" "${BLD}${CYE}Refreshing font cache...${CNC}"
-    fc-cache -fv > /dev/null 2>&1
+    fc-cache -fv
     printf "%b\n" "${BLD}${CGR}✓ Font cache refreshed${CNC}"
 
     # Install icon themes system-wide
@@ -226,10 +229,10 @@ install_assets() {
         for icon_theme in "$SCRIPT_DIR/assets/icons"/*; do
             if [ -d "$icon_theme" ]; then
                 theme_name=$(basename "$icon_theme")
-                printf "%b" "${BLD}${CBL}  → ${CNC}$theme_name... "
-                sudo cp -rf "$icon_theme" "/usr/share/icons/" 2>/dev/null
+                printf "%b\n" "${BLD}${CBL}  → Installing: ${CNC}$theme_name"
+                sudo cp -rf "$icon_theme" "/usr/share/icons/"
                 sudo gtk-update-icon-cache -f "/usr/share/icons/$theme_name" 2>/dev/null || true
-                printf "%b\n" "${BLD}${CGR}✓${CNC}"
+                printf "%b\n" "${BLD}${CGR}    ✓ Installed${CNC}"
             fi
         done
     else
@@ -242,9 +245,9 @@ install_assets() {
         for cursor_theme in "$SCRIPT_DIR/assets/cursors"/*; do
             if [ -d "$cursor_theme" ]; then
                 theme_name=$(basename "$cursor_theme")
-                printf "%b" "${BLD}${CBL}  → ${CNC}$theme_name... "
-                sudo cp -rf "$cursor_theme" "/usr/share/icons/" 2>/dev/null
-                printf "%b\n" "${BLD}${CGR}✓${CNC}"
+                printf "%b\n" "${BLD}${CBL}  → Installing: ${CNC}$theme_name"
+                sudo cp -rf "$cursor_theme" "/usr/share/icons/"
+                printf "%b\n" "${BLD}${CGR}    ✓ Installed${CNC}"
             fi
         done
     else
@@ -257,9 +260,9 @@ install_assets() {
         for gtk_theme in "$SCRIPT_DIR/assets/gtk-themes"/*; do
             if [ -d "$gtk_theme" ]; then
                 theme_name=$(basename "$gtk_theme")
-                printf "%b" "${BLD}${CBL}  → ${CNC}$theme_name... "
-                sudo cp -rf "$gtk_theme" "/usr/share/themes/" 2>/dev/null
-                printf "%b\n" "${BLD}${CGR}✓${CNC}"
+                printf "%b\n" "${BLD}${CBL}  → Installing: ${CNC}$theme_name"
+                sudo cp -rf "$gtk_theme" "/usr/share/themes/"
+                printf "%b\n" "${BLD}${CGR}    ✓ Installed${CNC}"
             fi
         done
     else
@@ -337,7 +340,7 @@ install_dotfiles() {
     sleep 2
 
     # Create required directories
-    for dir in "$HOME/.config" "$HOME/.local/bin" "$HOME/.local/share"; do
+    for dir in "$HOME/.config" "$HOME/.local/bin" "$HOME/.local/share" "$HOME/.local/share/applications"; do
         if [ ! -d "$dir" ]; then
             mkdir -p "$dir"
             printf "%s%sCreated: %s%s%s\n" "$BLD" "$CGR" "$CBL" "$dir" "$CNC"
@@ -412,8 +415,8 @@ install_dotfiles() {
     printf "\n%b\n" "${BLD}${CYE}Setting executable permissions...${CNC}"
 
     # Main bspwmrc
-    chmod +x "$HOME/.config/bspwm/bspwmrc" 2>/dev/null
     printf "%b" "${BLD}${CBL}  → ${CNC}bspwmrc... "
+    chmod +x "$HOME/.config/bspwm/bspwmrc" 2>/dev/null
     printf "%b\n" "${BLD}${CGR}✓${CNC}"
 
     # All scripts in bin/ directory (main utilities)
@@ -449,8 +452,6 @@ install_dotfiles() {
     fi
 
     printf "%b\n" "${BLD}${CGR}✓ All executable permissions set${CNC}"
-    
-    printf "%b\n" "${BLD}${CGR}✓ Permissions set${CNC}"
 
     # Refresh font cache
     printf "\n%b\n" "${BLD}${CYE}Refreshing font cache...${CNC}"
@@ -473,7 +474,7 @@ install_optional_packages() {
     logo "Optional Packages"
     sleep 2
 
-    printf "%b\n" "${BLD}${CYE}The following packages are optional:${CNC}\n"
+    printf "%b\n" "${BLD}${CYE}The following packages are optional but recommended:${CNC}\n"
     
     # Package list with descriptions
     printf "  ${BLD}btop${CNC}              - Resource monitor (modern htop alternative)\n"
@@ -541,37 +542,41 @@ install_optional_packages() {
         sleep 1
 
         if [ -n "$packages_to_install" ]; then
-            printf "\n%b\n" "${BLD}${CYE}Installing selected AUR packages...${CNC}"
+            printf "\n%b\n\n" "${BLD}${CYE}Installing selected AUR packages...${CNC}"
             
             for pkg in $packages_to_install; do
-                printf "%b" "${BLD}${CBL}  → ${CNC}$pkg... "
-                if paru -S --skipreview --noconfirm "$pkg" >/dev/null 2>&1; then
-                    printf "%b\n" "${BLD}${CGR}✓${CNC}"
-                else
-                    printf "%b\n" "${BLD}${CRE}✗ (failed)${CNC}"
+                printf "%b\n" "${BLD}${CBL}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${CNC}"
+                printf "%b\n" "${BLD}${CYE}Installing: ${CBL}$pkg${CNC}"
+                printf "%b\n" "${BLD}${CBL}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${CNC}"
+                
+                if ! paru -S --skipreview --noconfirm "$pkg"; then
+                    printf "\n%b\n\n" "${BLD}${CRE}✗ Failed to install $pkg${CNC}"
                     printf "\n%s\n" "$pkg" >> "$HOME/missing_apps.txt"
+                else
+                    printf "\n%b\n\n" "${BLD}${CGR}✓ Successfully installed $pkg${CNC}"
                 fi
             done
         fi
 
         # Handle SDDM installation separately (it's from official repos)
         if [ "$install_sddm" = "y" ]; then
-            printf "\n%b\n" "${BLD}${CYE}Installing SDDM...${CNC}"
+            printf "\n%b\n" "${BLD}${CBL}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${CNC}"
+            printf "%b\n" "${BLD}${CYE}Installing SDDM...${CNC}"
+            printf "%b\n" "${BLD}${CBL}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${CNC}"
             
-            printf "%b" "${BLD}${CBL}  → ${CNC}Installing sddm package... "
-            if sudo pacman -S --noconfirm --needed sddm >/dev/null 2>&1; then
-                printf "%b\n" "${BLD}${CGR}✓${CNC}"
+            if sudo pacman -S --noconfirm --needed sddm; then
+                printf "\n%b\n" "${BLD}${CGR}✓ SDDM installed${CNC}"
                 
-                printf "%b" "${BLD}${CBL}  → ${CNC}Enabling sddm.service... "
-                if sudo systemctl enable sddm.service >/dev/null 2>&1; then
-                    printf "%b\n" "${BLD}${CGR}✓${CNC}"
-                    printf "\n%b\n" "${BLD}${CGR}SDDM will start on next boot${CNC}"
+                printf "%b\n" "${BLD}${CYE}Enabling sddm.service...${CNC}"
+                if sudo systemctl enable sddm.service; then
+                    printf "%b\n" "${BLD}${CGR}✓ SDDM enabled - will start on next boot${CNC}"
                 else
-                    printf "%b\n" "${BLD}${CRE}✗ (failed to enable)${CNC}"
+                    printf "%b\n" "${BLD}${CRE}✗ Failed to enable SDDM service${CNC}"
                 fi
             else
-                printf "%b\n" "${BLD}${CRE}✗ (installation failed)${CNC}"
+                printf "\n%b\n" "${BLD}${CRE}✗ Failed to install SDDM${CNC}"
             fi
+            printf "%b\n" "${BLD}${CBL}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${CNC}"
         fi
 
         printf "\n%b\n" "${BLD}${CGR}Optional packages installation completed!${CNC}"
@@ -689,8 +694,8 @@ final_prompt() {
                 sudo reboot
                 break ;;
             [Nn]|"")
-                printf "\n%b\n" "${BLD}${CYE}Don't forget to reboot later!${CNC}"
-                printf "%b\n\n" "${BLD}${CGR}Enjoy your z0mbi3 rice! 🧟${CNC}"
+                printf "\n%b\n" "${BLD}${CYE}Don't forget to reboot${CNC}"
+                printf "%b\n\n" "${BLD}${CGR}Enjoy your z0mbi3 rice!${CNC}"
                 break ;;
             *) printf " %b%bError:%b write 'y' or 'n'\n" "${BLD}" "${CRE}" "${CNC}" ;;
         esac
