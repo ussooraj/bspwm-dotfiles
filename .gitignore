@@ -1,7 +1,6 @@
 test/
 add_pkgs*
 
-# VSCode
 .vscode/
 .history/
 
@@ -14,6 +13,4 @@ add_pkgs*
 *.zip
 *.tar.gz
 *.rar
-
-build/
-dist/
+*.7z
