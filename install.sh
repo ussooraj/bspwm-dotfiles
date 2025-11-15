@@ -174,7 +174,7 @@ install_aur_dependencies() {
     fi
 
     # EWW is CRITICAL for z0mbi3 theme + other AUR packages
-    aur_deps="eww-git xwinwrap-0.9-bin i3lock-color simple-mtpfs fzf-tab-git"
+    aur_deps="eww xwinwrap-0.9-bin i3lock-color simple-mtpfs fzf-tab-git ttf-material-design-icons-desktop-git"
 
     printf "\n%b\n" "${BLD}${CYE}Installing AUR packages...${CNC}"
     printf "%b\n\n" "${BLD}${CRE}⚠ This will take some time as packages are built from source!${CNC}"
