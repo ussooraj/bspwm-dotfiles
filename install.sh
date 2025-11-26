@@ -120,6 +120,7 @@ install_optional_packages() {
     if ask "blueman (Bluetooth manager)"; then packages_to_install="$packages_to_install blueman"; fi
     if ask "vesktop (Discord)"; then packages_to_install="$packages_to_install vesktop"; fi
     if ask "visual-studio-code-bin"; then packages_to_install="$packages_to_install visual-studio-code-bin"; fi
+    if ask "linux-wifi-hotspot"; then packages_to_install="$packages_to_install linux-wifi-hotspot"; fi
     if ask "SDDM (Display Manager)"; then install_sddm="y"; fi
 
     if [ -n "$packages_to_install" ]; then
