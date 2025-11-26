@@ -118,8 +118,12 @@ XF86Audio{RaiseVolume,LowerVolume,Mute}
 	Volume{ --inc, --dec, --toggle}
 
 # Music Control
+# XF86Audio{Next,Prev,Play,Stop}
+# 	MediaControl {--next,--previous,--toggle,--stop}
+
 XF86Audio{Next,Prev,Play,Stop}
-	MediaControl {--next,--previous,--toggle,--stop}
+    playerctl {next,previous,play-pause,stop}
+
 
 #####################
 # ----- Bspwm ----- #

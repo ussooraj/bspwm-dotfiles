@@ -42,9 +42,9 @@ term_font_name="JetBrainsMono Nerd Font"
 # Picom options
 P_FADE="true"			# Fade true|false
 P_SHADOWS="true"		# Shadows true|false
-SHADOW_C="#000000"		# Shadow color
+SHADOW_C="#9A9996"		# Shadow color
 P_CORNER_R="6"			# Corner radius (0 = disabled)
-P_BLUR="false"			# Blur true|false
+P_BLUR="true"			# Blur true|false
 P_ANIMATIONS="@"		# (@ = enable) (# = disable)
 P_TERM_OPACITY="1.0"	# Terminal transparency. Range: 0.1 - 1.0 (1.0 = disabled)
 
@@ -103,5 +103,5 @@ geany_theme="z0mbi3-Decay"
 # - Slideshow (Change randomly every 15 minutes your wallpaper from Walls rice directory)
 ENGINE="Theme"
 CUSTOM_DIR="/path/to/dir"
-CUSTOM_WALL="/path/to/image"
+CUSTOM_WALL="/home/arx/.config/bspwm/rices/z0mbi3/walls/arch-jp.webp"
 CUSTOM_ANIMATED="$HOME/.config/bspwm/config/assets/animated_wall.mp4"
