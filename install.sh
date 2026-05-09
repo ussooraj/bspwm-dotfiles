@@ -217,6 +217,46 @@ configure_services() {
     sleep 2
 }
 
+install_system_assets() {
+    clear
+    logo "Installing System Assets"
+
+    # 1. GTK Themes
+    if [ -d "$SCRIPT_DIR/assets/gtk-themes" ]; then
+        printf "%b\n" "${BLD}${CYE}Deploying GTK Themes to /usr/share/themes/...${CNC}"
+        sudo mkdir -p /usr/share/themes
+        sudo cp -rf "$SCRIPT_DIR/assets/gtk-themes"/* /usr/share/themes/
+        printf "%b\n" "${BLD}${CGR}✓ GTK Themes installed${CNC}"
+    fi
+
+    # 2. Icon Themes
+    if [ -d "$SCRIPT_DIR/assets/icons" ]; then
+        printf "%b\n" "${BLD}${CYE}Deploying Icon Themes to /usr/share/icons/...${CNC}"
+        sudo mkdir -p /usr/share/icons
+        sudo cp -rf "$SCRIPT_DIR/assets/icons"/* /usr/share/icons/
+        printf "%b\n" "${BLD}${CGR}✓ Icon Themes installed${CNC}"
+    fi
+
+    # 3. Misc Desktop Files
+    if [ -d "$SCRIPT_DIR/misc/applications" ]; then
+        printf "%b\n" "${BLD}${CYE}Deploying .desktop files...${CNC}"
+        mkdir -p "$HOME/.local/share/applications"
+        cp -f "$SCRIPT_DIR/misc/applications"/*.desktop "$HOME/.local/share/applications/"
+        chmod +x "$HOME/.local/share/applications"/*.desktop
+        printf "%b\n" "${BLD}${CGR}✓ .desktop files installed${CNC}"
+    fi
+
+    # 4. Application Icons 
+    if [ -f "$SCRIPT_DIR/misc/applications/zombie.svg" ]; then
+        printf "%b\n" "${BLD}${CYE}Installing application icons...${CNC}"
+        mkdir -p "$HOME/.local/share/icons"
+        cp -f "$SCRIPT_DIR/misc/applications/zombie.svg" "$HOME/.local/share/icons/"
+        printf "%b\n" "${BLD}${CGR}✓ Application icons installed${CNC}"
+    fi
+
+    sleep 2
+}
+
 final_prompt() {
     clear
     logo "Installation Complete!"
@@ -234,5 +274,6 @@ install_aur_dependencies
 install_optional_packages
 backup_existing_config
 install_dotfiles
+install_system_assets
 configure_services
 final_prompt
