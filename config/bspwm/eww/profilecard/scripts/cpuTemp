@@ -1,22 +1,17 @@
-#!/bin/sh
-# =============================================================
-# Author: gh0stzk
-# Repo:   https://github.com/gh0stzk/dotfiles
-# Date:   24.04.2025
-#
-# Script Name: cpuTemp
-# Description: Advanced CPU temperature monitor with multi-sensor detection
-# Features:
-#   - Scans 10+ common thermal sensor paths
-#   - Auto-detects valid temperature readings
-#   - Returns highest core temperature in Celsius
-#   - Handles special hardware (ThinkPad, Samsung, PCI devices)
-#   - Integrate with status bars/notifications
-#   - Null output: Returns "null" if no valid sensors found
-#
-# Copyright (C) 2021-2025 gh0stzk <z0mbi3.zk@protonmail.com>
-# Licensed under GPL-3.0 license
-# =============================================================
+#                              
+#     ▄▄▄▄      ██▀▀██  ▒██   ██▒    
+#     ▒████▄   ░██  ▒█▒ ░ ██ ██░░  
+#     ▒██  ▀█▄ ░██  █▀░░░   █   ░  
+#     ▒██▄▄▄▄██░██▀▀█▄   ░ █ █ ░   
+#     ░██   ▓██░██  ▒██░░██▒ ▒██▒  
+#     ░▒▓   ░▓█░▓█░ ░▒█░▓█ ░ ░░█▓  
+#     ░░   ░░▓  ▓▒ ░ ▓░░░   ░░ ░  
+#     ░   ░     ░   ░  ░    ░    
+#         ░     ░      ░    ░    
+#                              
+# CPU Temperature Monitor
+# Advanced CPU temperature monitor with multi-sensor detection
+# Original: https://github.com/gh0stzk/dotfiles
 
 # Common Temperature Sensor Paths
 PATHS="/sys/class/thermal/thermal_zone*/temp

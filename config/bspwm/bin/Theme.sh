@@ -1,19 +1,18 @@
 #!/bin/sh
-# =============================================================
-#  ████████╗██╗  ██╗███████╗███╗   ███╗███████╗
-#  ╚══██╔══╝██║  ██║██╔════╝████╗ ████║██╔════╝
-#     ██║   ███████║█████╗  ██╔████╔██║█████╗
-#     ██║   ██╔══██║██╔══╝  ██║╚██╔╝██║██╔══╝
-#     ██║   ██║  ██║███████╗██║ ╚═╝ ██║███████╗
-#     ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚══════╝
-# Author: gh0stzk
-# Repo:   https://github.com/gh0stzk/dotfiles
-# Date:   02.05.2025 07:37:41
-# Info:   This file will configure and launch the rice.
-#
-# Copyright (C) 2021-2025 gh0stzk <z0mbi3.zk@protonmail.com>
-# Licensed under GPL-3.0 license
-# =============================================================
+#                              
+#     ▄▄▄▄      ██▀▀██  ▒██   ██▒    
+#     ▒████▄   ░██  ▒█▒ ░ ██ ██░░  
+#     ▒██  ▀█▄ ░██  █▀░░░   █   ░  
+#     ▒██▄▄▄▄██░██▀▀█▄   ░ █ █ ░   
+#     ░██   ▓██░██  ▒██░░██▒ ▒██▒  
+#     ░▒▓   ░▓█░▓█░ ░▒█░▓█ ░ ░░█▓  
+#     ░░   ░░▓  ▓▒ ░ ▓░░░   ░░ ░  
+#     ░   ░     ░   ░  ░    ░    
+#         ░     ░      ░    ░    
+#                              
+# Theme.sh - Theme Configuration Manager
+# Configures and launches the rice theme
+# Original: https://github.com/gh0stzk/dotfiles
 
 # Current Rice
 read -r RICE < "$HOME"/.config/bspwm/.rice

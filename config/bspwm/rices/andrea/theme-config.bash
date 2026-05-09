@@ -1,8 +1,16 @@
-#############################
-#		Andrea Theme		#
-#############################
-# Copyright (C) 2021-2025 gh0stzk <z0mbi3.zk@protonmail.com>
-# https://github.com/gh0stzk/dotfiles
+#                              
+#     ▄▄▄▄      ██▀▀██  ▒██   ██▒    
+#     ▒████▄   ░██  ▒█▒ ░ ██ ██░░  
+#     ▒██  ▀█▄ ░██  █▀░░░   █   ░  
+#     ▒██▄▄▄▄██░██▀▀█▄   ░ █ █ ░   
+#     ░██   ▓██░██  ▒██░░██▒ ▒██▒  
+#     ░▒▓   ░▓█░▓█░ ░▒█░▓█ ░ ░░█▓  
+#     ░░   ░░▓  ▓▒ ░ ▓░░░   ░░ ░  
+#     ░   ░     ░   ░  ░    ░    
+#         ░     ░      ░    ░    
+#                              
+# Andrea Theme Configuration
+# Original: https://github.com/gh0stzk/dotfiles
 
 # Colorscheme
 bg="#f5eee6"

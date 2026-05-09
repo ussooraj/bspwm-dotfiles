@@ -1,4 +1,18 @@
 #!/bin/sh
+#                              
+#     ▄▄▄▄      ██▀▀██  ▒██   ██▒    
+#     ▒████▄   ░██  ▒█▒ ░ ██ ██░░  
+#     ▒██  ▀█▄ ░██  █▀░░░   █   ░  
+#     ▒██▄▄▄▄██░██▀▀█▄   ░ █ █ ░   
+#     ░██   ▓██░██  ▒██░░██▒ ▒██▒  
+#     ░▒▓   ░▓█░▓█░ ░▒█░▓█ ░ ░░█▓  
+#     ░░   ░░▓  ▓▒ ░ ▓░░░   ░░ ░  
+#     ░   ░     ░   ░  ░    ░    
+#         ░     ░      ░    ░    
+#                              
+# GameMode - Performance Mode Toggle
+# Disables compositor and notifications for gaming performance
+# Original: https://github.com/gh0stzk/dotfiles
 
 CACHE_DIR="$HOME/.cache/$USER"
 CACHE_FILE="$CACHE_DIR/gamemode_state"

@@ -1,4 +1,17 @@
-# This file launch the bar/s
+# Bar launcher script
+#                              
+#     ▄▄▄▄      ██▀▀██  ▒██   ██▒    
+#     ▒████▄   ░██  ▒█▒ ░ ██ ██░░  
+#     ▒██  ▀█▄ ░██  █▀░░░   █   ░  
+#     ▒██▄▄▄▄██░██▀▀█▄   ░ █ █ ░   
+#     ░██   ▓██░██  ▒██░░██▒ ▒██▒  
+#     ░▒▓   ░▓█░▓█░ ░▒█░▓█ ░ ░░█▓  
+#     ░░   ░░▓  ▓▒ ░ ▓░░░   ░░ ░  
+#     ░   ░     ░   ░  ░    ░    
+#         ░     ░      ░    ░    
+#                            
+# Generates eww workspaces and launches bars
+# Original: https://github.com/gh0stzk/dotfiles
 
 # Function for generating workspaces.yuck file with eww widgets
 generate_eww_workspaces() {

@@ -1,13 +1,18 @@
 #!/bin/sh
-# =============================================================
-# gh0stzk
-# https://github.com/gh0stzk/dotfiles
-# Checks if you are connected to the internet and set values for eww bar.
-# 23.09.2023 13:39:59
-#
-# Copyright (C) 2021-2025 gh0stzk <z0mbi3.zk@protonmail.com>
-# Licensed under GPL-3.0 license
-# =============================================================
+#                              
+#     ▄▄▄▄      ██▀▀██  ▒██   ██▒    
+#     ▒████▄   ░██  ▒█▒ ░ ██ ██░░  
+#     ▒██  ▀█▄ ░██  █▀░░░   █   ░  
+#     ▒██▄▄▄▄██░██▀▀█▄   ░ █ █ ░   
+#     ░██   ▓██░██  ▒██░░██▒ ▒██▒  
+#     ░▒▓   ░▓█░▓█░ ░▒█░▓█ ░ ░░█▓  
+#     ░░   ░░▓  ▓▒ ░ ▓░░░   ░░ ░  
+#     ░   ░     ░   ░  ░    ░    
+#         ░     ░      ░    ░    
+# 
+# Network - Network status checker for EWW bar
+# Detects online/offline status and displays connection info
+# Original: https://github.com/gh0stzk/dotfiles
 
 is_online() {
 	ping -c 1 -W 1 archlinux.org >/dev/null 2>&1

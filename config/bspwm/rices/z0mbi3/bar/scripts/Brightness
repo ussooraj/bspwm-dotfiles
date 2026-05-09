@@ -1,22 +1,18 @@
 #!/bin/sh
-# =============================================================
-# Author:  gh0stzk
-# Repo:    https://github.com/gh0stzk/dotfiles
-# Date:    03.02.2025 14:22:32
-#
-# Brightness - Hardware brightness control
-# Features:
-#   ✔ Brightness adjustments in 5% increments
-#   ✔ Configurable minimum of 2% brightness
-#   ✔ OSD notifications with graphical progress bar
-#
-# Dependencies:
-#   → brightnessctl
-#   → dunst
-#
-# Copyright (C) 2021-2025 gh0stzk <z0mbi3.zk@protonmail.com>
-# Licensed under GPL-3.0 license
-# =============================================================
+#                              
+#     ▄▄▄▄      ██▀▀██  ▒██   ██▒    
+#     ▒████▄   ░██  ▒█▒ ░ ██ ██░░  
+#     ▒██  ▀█▄ ░██  █▀░░░   █   ░  
+#     ▒██▄▄▄▄██░██▀▀█▄   ░ █ █ ░   
+#     ░██   ▓██░██  ▒██░░██▒ ▒██▒  
+#     ░▒▓   ░▓█░▓█░ ░▒█░▓█ ░ ░░█▓  
+#     ░░   ░░▓  ▓▒ ░ ▓░░░   ░░ ░  
+#     ░   ░     ░   ░  ░    ░    
+#         ░     ░      ░    ░    
+# 
+# Brightness - Hardware brightness control for EWW bar
+# Adjusts brightness in 3% increments with OSD notifications
+# Original: https://github.com/gh0stzk/dotfiles
 
 DIR="$HOME/.config/bspwm/src/assets"
 BRIGHTNESS_STEPS=3

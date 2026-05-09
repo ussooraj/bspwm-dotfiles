@@ -1,4 +1,18 @@
 #!/bin/sh
+#                              
+#     ▄▄▄▄      ██▀▀██  ▒██   ██▒    
+#     ▒████▄   ░██  ▒█▒ ░ ██ ██░░  
+#     ▒██  ▀█▄ ░██  █▀░░░   █   ░  
+#     ▒██▄▄▄▄██░██▀▀█▄   ░ █ █ ░   
+#     ░██   ▓██░██  ▒██░░██▒ ▒██▒  
+#     ░▒▓   ░▓█░▓█░ ░▒█░▓█ ░ ░░█▓  
+#     ░░   ░░▓  ▓▒ ░ ▓░░░   ░░ ░  
+#     ░   ░     ░   ░  ░    ░    
+#         ░     ░      ░    ░    
+# 
+# battery - Battery status monitor for EWW bar
+# Displays battery percentage and charging status with icons
+# Original: https://github.com/gh0stzk/dotfiles
 
 bat=/sys/class/power_supply/BAT1/
 per="$(cat "$bat/capacity")"

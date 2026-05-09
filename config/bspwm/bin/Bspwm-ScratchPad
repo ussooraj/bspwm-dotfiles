@@ -1,26 +1,18 @@
 #!/bin/sh
-# =============================================================
-# Author: gh0stzk
-# Repo:   https://github.com/gh0stzk/dotfiles
-# Date:   24.04.2025
-#
-# Script Name: Bspwm-Scratchpad
-# Description: Dynamic scratchpad manager for bspwm with adaptive positioning
-# Features:
-#   - Monitor-aware geometry calculations
-#   - Percentage-based sizing (70% width/35% height)
-#   - Multi-terminal support (Alacritty/Termite)
-#   - Auto-hide/show toggle functionality
-#   - Persistent window positioning across monitor changes
-# Dependencies:
-#   - bspwm (>= 0.9.10)
-#   - jq (JSON processing)
-#   - xdo (window operations)
-#   - xprop (window identification)
-#
-# Copyright (C) 2021-2025 gh0stzk <z0mbi3.zk@protonmail.com>
-# Licensed under GPL-3.0 license
-# =============================================================
+#                              
+#     ▄▄▄▄      ██▀▀██  ▒██   ██▒    
+#     ▒████▄   ░██  ▒█▒ ░ ██ ██░░  
+#     ▒██  ▀█▄ ░██  █▀░░░   █   ░  
+#     ▒██▄▄▄▄██░██▀▀█▄   ░ █ █ ░   
+#     ░██   ▓██░██  ▒██░░██▒ ▒██▒  
+#     ░▒▓   ░▓█░▓█░ ░▒█░▓█ ░ ░░█▓  
+#     ░░   ░░▓  ▓▒ ░ ▓░░░   ░░ ░  
+#     ░   ░     ░   ░  ░    ░    
+#         ░     ░      ░    ░    
+#                              
+# Bspwm-ScratchPad - Dynamic Scratchpad Manager
+# Features: Monitor-aware geometry, percentage-based sizing, multi-terminal support, auto-hide/show toggle
+# Original: https://github.com/gh0stzk/dotfiles
 
 # Main vars
 SCRATCHPAD_NAME="bspwm-scratch"

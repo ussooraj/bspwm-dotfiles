@@ -1,9 +1,18 @@
 #!/bin/sh
-# =============================================================
-# gh0stzk
-# https://github.com/gh0stzk/dotfiles
-# 24.04.2025
-# =============================================================
+#                              
+#     ▄▄▄▄      ██▀▀██  ▒██   ██▒    
+#     ▒████▄   ░██  ▒█▒ ░ ██ ██░░  
+#     ▒██  ▀█▄ ░██  █▀░░░   █   ░  
+#     ▒██▄▄▄▄██░██▀▀█▄   ░ █ █ ░   
+#     ░██   ▓██░██  ▒██░░██▒ ▒██▒  
+#     ░▒▓   ░▓█░▓█░ ░▒█░▓█ ░ ░░█▓  
+#     ░░   ░░▓  ▓▒ ░ ▓░░░   ░░ ░  
+#     ░   ░     ░   ░  ░    ░    
+#         ░     ░      ░    ░    
+#                              
+# ExternalRules - BSPWM Window Rules Manager
+# Handles window placement, states, and desktop assignments
+# Original: https://github.com/gh0stzk/dotfiles
 
 wid=$1
 class=$2

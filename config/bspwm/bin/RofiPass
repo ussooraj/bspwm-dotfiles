@@ -1,17 +1,19 @@
 #!/bin/sh
-# =============================================================
-# Author: gh0stzk
-# Repo: https://github.com/gh0stzk/dotfiles
-# Date: 05.11.2025
-#
-# Script Name: Rofi Password
-# Description: Rofi applet to manage your passwords with the "Pass" application
-# Features:
-#   - Add new password, show, copy, edit, delete and auto-type passwords
-#
-# Copyright (C) 2021-2025 gh0stzk <z0mbi3.zk@protonmail.com>
-# Licensed under GPL-3.0 license
-# =============================================================
+#                              
+#     ▄▄▄▄      ██▀▀██  ▒██   ██▒    
+#     ▒████▄   ░██  ▒█▒ ░ ██ ██░░  
+#     ▒██  ▀█▄ ░██  █▀░░░   █   ░  
+#     ▒██▄▄▄▄██░██▀▀█▄   ░ █ █ ░   
+#     ░██   ▓██░██  ▒██░░██▒ ▒██▒  
+#     ░▒▓   ░▓█░▓█░ ░▒█░▓█ ░ ░░█▓  
+#     ░░   ░░▓  ▓▒ ░ ▓░░░   ░░ ░  
+#     ░   ░     ░   ░  ░    ░    
+#         ░     ░      ░    ░    
+#                              
+# RofiPass - Password Manager Applet
+# Rofi applet to manage passwords with the Pass application
+# Features: Add, show, copy, edit, delete and auto-type passwords
+# Original: https://github.com/gh0stzk/dotfiles
 
 # Switch for autotype
 typeit=0
