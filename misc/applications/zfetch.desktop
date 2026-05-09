@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=Fetch..
-Icon=~/.local/share/applications/zombie.svg
+Icon=zombie
 Terminal=false
-Exec=OpenApps --fetch
+Exec=bash -c 'export PATH="$HOME/.config/bspwm/bin:$PATH" && OpenApps --fetch'
 #Exec=termite --hold -e zfetch
