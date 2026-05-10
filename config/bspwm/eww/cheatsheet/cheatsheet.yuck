@@ -1,7 +1,17 @@
-;; Author : gh0st
-;; Dotfiles : https://github.com/gh0stzk/dotfiles
+;;                              
+;;     ▄▄▄▄      ██▀▀██  ▒██   ██▒    
+;;     ▒████▄   ░██  ▒█▒ ░ ██ ██░░  
+;;     ▒██  ▀█▄ ░██  █▀░░░   █   ░  
+;;     ▒██▄▄▄▄██░██▀▀█▄   ░ █ █ ░   
+;;     ░██   ▓██░██  ▒██░░██▒ ▒██▒  
+;;     ░▒▓   ░▓█░▓█░ ░▒█░▓█ ░ ░░█▓  
+;;     ░░   ░░▓  ▓▒ ░ ▓░░░   ░░ ░  
+;;     ░   ░     ░   ░  ░    ░    
+;;         ░     ░      ░    ░    
+;;                              
 ;; Show a cheatsheet for the bspwm environment.
-;;
+;; Disables compositor and notifications for gaming performance
+;; Original: https://github.com/gh0stzk/dotfiles
 
 
 (defwidget cheatsheet []
@@ -60,7 +70,7 @@
         (label :class "keys-alt" :xalign 1 :text "Super + Alt + Enter"))
       (box :orientation "h" :space-evenly "true"
         (label :class "keys" :xalign 0 :text "Menu Apps")
-        (label :class "keys-alt" :xalign 1 :text "Super + Space Bar"))
+        (label :class "keys-alt" :xalign 1 :text "Super + d"))
       (box :orientation "h" :space-evenly "true"
         (label :class "keys" :xalign 0 :text "Theme Selector")
         (label :class "keys-alt" :xalign 1 :text "Alt + Space Bar"))
@@ -78,19 +88,19 @@
         (label :text ""))
       (box :orientation "h" :space-evenly "true"
         (label :class "keys" :xalign 0 :text "Switch workspaces")
-        (label :class "keys-alt" :xalign 1 :text "Super +  "))
+        (label :class "keys-alt" :xalign 1 :text "Super + Alt +  "))
       (box :orientation "h" :space-evenly "true"
         (label :class "keys" :xalign 0 :text "Switch specific workspace")
         (label :class "keys-alt" :xalign 1 :text "Super + 1-9"))
       (box :orientation "h" :space-evenly "true"
         (label :class "keys" :xalign 0 :text "Rotate workspace")
-        (label :class "keys-alt" :xalign 1 :text "Ctrl + Tab"))
+        (label :class "keys-alt" :xalign 1 :text "Ctrl + p"))
       (box :orientation "h" :space-evenly "true"
         (label :class "keys" :xalign 0 :text "")
         (label :class "keys-alt" :xalign 1 :text ""))
       (box :orientation "h" :space-evenly "true"
         (label :class "keys" :xalign 0 :text "Send to other workspace")
-        (label :class "keys-alt" :xalign 1 :text "Super + Ctrl + 1-9"))
+        (label :class "keys-alt" :xalign 1 :text "Super + Shift + 1-9"))
       (box :orientation "h" :space-evenly "true"
         (label :class "keys" :xalign 0 :text "Send & follow")
         (label :class "keys-alt" :xalign 1 :text "Super + Ctrl +  "))
@@ -103,6 +113,21 @@
       (box :orientation "h" :space-evenly "true"
         (label :class "keys" :xalign 0 :text "Cancel preselection")
         (label :class "keys-alt" :xalign 1 :text "Super + Ctrl + q"))
+      (box :orientation "h" :space-evenly "true"
+        (label :class "category-toggles" :xalign 0.5 :text "Toggles")
+        (label :text ""))
+      (box :orientation "h" :space-evenly "true"
+        (label :class "keys" :xalign 0 :text "Calendar")
+        (label :class "keys-alt" :xalign 1 :text "Super + Ctrl + c"))
+      (box :orientation "h" :space-evenly "true"
+        (label :class "keys" :xalign 0 :text "User Card")
+        (label :class "keys-alt" :xalign 1 :text "Super + Ctrl + u"))
+      (box :orientation "h" :space-evenly "true"
+        (label :class "keys" :xalign 0 :text "Game Mode")
+        (label :class "keys-alt" :xalign 1 :text "Super + g"))
+      (box :orientation "h" :space-evenly "true"
+        (label :class "keys" :xalign 0 :text "Night Mode")
+        (label :class "keys-alt" :xalign 1 :text "Super + Ctrl + n"))
     )
 
     (box :orientation "v" :space-evenly "false" :spacing 1
@@ -111,10 +136,10 @@
         (label :text ""))
       (box :orientation "h" :space-evenly "true"
         (label :class "keys" :xalign 0 :text "Close Node")
-        (label :class "keys-alt" :xalign 1 :text "Super + x"))
+        (label :class "keys-alt" :xalign 1 :text "Super + q"))
       (box :orientation "h" :space-evenly "true"
         (label :class "keys" :xalign 0 :text "Kill Node")
-        (label :class "keys-alt" :xalign 1 :text "Super + Shift + x"))
+        (label :class "keys-alt" :xalign 1 :text "Super + Shift + q"))
       (box :orientation "h" :space-evenly "true"
         (label :class "keys" :xalign 0 :text "Close all nodes in desktop")
         (label :class "keys-alt" :xalign 1 :text "Super + Ctrl + x"))
@@ -156,13 +181,13 @@
         (label :class "keys-alt" :xalign 1 :text ""))
       (box :orientation "h" :space-evenly "true"
         (label :class "keys" :xalign 0 :text "Change Node focus")
-        (label :class "keys-alt" :xalign 1 :text "Super + Alt +    "))
+        (label :class "keys-alt" :xalign 1 :text "Super +    "))
       (box :orientation "h" :space-evenly "true"
         (label :class "keys" :xalign 0 :text "Swap Nodes")
         (label :class "keys-alt" :xalign 1 :text "Ctrl + Alt +    "))
       (box :orientation "h" :space-evenly "true"
-        (label :class "keys" :xalign 0 :text "Focus last N/W")
-        (label :class "keys-alt" :xalign 1 :text "Ctrl + Shift + {, , .}"))
+        (label :class "keys" :xalign 0 :text "Focus last node/desktop")
+        (label :class "keys-alt" :xalign 1 :text "Ctrl + Shift + {, .}"))
       (box :orientation "h" :space-evenly "true"
         (label :class "keys" :xalign 0 :text "Node switcher")
         (label :class "keys-alt" :xalign 1 :text "Alt + Tab"))
@@ -250,6 +275,12 @@
       (box :orientation "h" :space-evenly "true"
         (label :class "keys" :xalign 0 :text "Pavucontrol")
         (label :class "keys-alt" :xalign 1 :text "Super + p"))
+      (box :orientation "h" :space-evenly "true"
+        (label :class "keys" :xalign 0 :text "Telegram")
+        (label :class "keys-alt" :xalign 1 :text "Super + t"))
+      (box :orientation "h" :space-evenly "true"
+        (label :class "keys" :xalign 0 :text "Whatsapp")
+        (label :class "keys-alt" :xalign 1 :text "Super + w"))
       (box :orientation "h" :space-evenly "true"
         (label :class "category-power" :xalign 0.5 :text "Power")
         (label :text ""))
