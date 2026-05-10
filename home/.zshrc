@@ -1,8 +1,18 @@
+#                              
+#     ▄▄▄▄      ██▀▀██  ▒██   ██▒    
+#     ▒████▄   ░██  ▒█▒ ░ ██ ██░░  
+#     ▒██  ▀█▄ ░██  █▀░░░   █   ░  
+#     ▒██▄▄▄▄██░██▀▀█▄   ░ █ █ ░   
+#     ░██   ▓██░██  ▒██░░██▒ ▒██▒  
+#     ░▒▓   ░▓█░▓█░ ░▒█░▓█ ░ ░░█▓  
+#     ░░   ░░▓  ▓▒ ░ ▓░░░   ░░ ░  
+#     ░   ░     ░   ░  ░    ░    
+#         ░     ░      ░    ░    
+#
 #  ╔═╗╔═╗╦ ╦╦═╗╔═╗  ╔═╗╔═╗╔╗╔╔═╗╦╔═╗	
 #  ╔═╝╚═╗╠═╣╠╦╝║    ║  ║ ║║║║╠╣ ║║ ╦	
 #  ╚═╝╚═╝╩ ╩╩╚═╚═╝  ╚═╝╚═╝╝╚╝╚  ╩╚═╝	
 
-# If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
 #  ┬  ┬┌─┐┬─┐┌─┐
@@ -14,6 +24,7 @@ export BROWSER='firefox'
 export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
 export SUDO_PROMPT="⤷ Password: "
 export BAT_THEME="base16"
+export PATH="/opt/cuda/bin:$PATH"
 
 if [ -d "$HOME/.local/bin" ] ;
   then PATH="$HOME/.local/bin:$PATH"
@@ -145,7 +156,7 @@ fi
 #  ┌─┐┬  ┬┌─┐┌─┐
 #  ├─┤│  │├─┤└─┐
 #  ┴ ┴┴─┘┴┴ ┴└─┘
-alias mirrors="sudo reflector --verbose --latest 5 --country 'United States' --age 6 --sort rate --save /etc/pacman.d/mirrorlist"
+alias mirrors="sudo reflector --verbose --latest 5 --country 'India' --age 6 --sort rate --save /etc/pacman.d/mirrorlist"
 alias update="paru -Syu --nocombinedupgrade"
 alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias clean="sudo pacman -Rns $(pacman -Qtdq)"
@@ -157,46 +168,64 @@ alias work="code ~/workspace"
 alias stats='btop --force-utf'
 alias bench='cd ~/Desktop & ./OCCT'
 
-## uncomment these or edit for your power profile switching
-# alias performance='conda deactivate && powerprofilesctl set performance && powerprofilesctl && conda activate base'
-# alias battery='conda deactivate && powerprofilesctl set power-saver && powerprofilesctl && conda activate base'
-
 alias cat="bat --theme=base16"
 alias ls='eza --icons=always --color=always -a'
 alias ll='eza --icons=always --color=always -la'
 
+fastget() {
+    local filename="${1##*/}"
+    filename="${filename%%\?*}"
 
+    echo "Forcing filename: $filename"
+    aria2c -x 16 -s 16 -k 1M --console-log-level=error --summary-interval=0 --download-result=hide -o "$filename" "$1"
+}
+
+# =============================================================
 # Refresh Rate Switching Functions
-# Switches to 60Hz for battery saving.
 # Compactible for "my" laptop but cant guarantee for others.
+# =============================================================
 
-# for igpu only mode 
-b60hz() {
-    if ! xrandr | grep -q "1920x1080_60.00"; then
-        echo "60Hz mode not found. Creating and adding it..."
-        xrandr --newmode "1920x1080_60.00"  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
-        xrandr --addmode eDP "1920x1080_60.00"
-    fi
-    xrandr --output eDP --mode "1920x1080_60.00"
+# Helper: returns eDP or eDP-1
+_edp_output() {
+    xrandr | awk '/ connected primary / {print $1; exit}'
 }
 
-b144hz() {
-    xrandr --output eDP --mode 1920x1080 --rate 144.42
-}
-
-# for dgpu + igpu mode
 60hz() {
-    if ! xrandr | grep -q "1920x1080_60.00"; then
-        echo "60Hz mode not found. Creating and adding it..."
-        xrandr --newmode "1920x1080_60.00"  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
-        xrandr --addmode eDP-1 "1920x1080_60.00"
+    local output=$(_edp_output)
+    if [[ -z "$output" ]]; then
+        echo "Error: No primary display found." >&2
+        return 1
     fi
-    xrandr --output eDP-1 --mode "1920x1080_60.00"
+
+    xrandr --newmode "1920x1080_60.00" \
+        173.00 1920 2048 2248 2576 1080 1083 1088 1120 -hsync +vsync 2>/dev/null
+
+    xrandr --addmode "$output" "1920x1080_60.00" 2>/dev/null
+    xrandr --output "$output" --mode "1920x1080_60.00"
 }
 
 144hz() {
-    xrandr --output eDP-1 --mode 1920x1080 --rate 144.42
+    local output=$(_edp_output)
+    if [[ -z "$output" ]]; then
+        echo "Error: No primary display found." >&2
+        return 1
+    fi
+
+    xrandr --output "$output" --mode 1920x1080 --rate 144.42
 }
+
+alias performance='powerprofilesctl set performance && powerprofilesctl && 144hz'
+alias battery='powerprofilesctl set power-saver && powerprofilesctl && 60hz'
+
+# =============================================================
+# IDE-Style Key Bindings for Zsh Line Editor (ZLE)
+# =============================================================
+
+bindkey '^[[1;5D' backward-word           # Ctrl+Left
+bindkey '^[[1;5C' forward-word            # Ctrl+Right
+bindkey '^[[1;5A' beginning-of-line       # Ctrl+Up
+bindkey '^[[1;5B' end-of-line             # Ctrl+Down
+bindkey '^H' backward-kill-word           # Ctrl+Backspace
 
 
 #  ┌─┐┬ ┬┌┬┐┌─┐  ┌─┐┌┬┐┌─┐┬─┐┌┬┐
